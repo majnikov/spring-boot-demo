@@ -31,7 +31,7 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/users/{id:[\\d]+}/notes", method = RequestMethod.GET)
-    public List<Note> addNoteToUserById(@PathVariable Integer id) {
+    public List<Note> getAllUserNotes(@PathVariable Integer id) {
         return noteService.getAllUserNotesById(id);
     }
 

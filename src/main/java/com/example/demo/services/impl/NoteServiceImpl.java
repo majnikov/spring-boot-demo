@@ -18,13 +18,14 @@ import java.util.List;
 public class NoteServiceImpl implements NoteService {
 
     private NoteRepository noteRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public NoteServiceImpl(NoteRepository noteRepository, UserRepository userRepository) {
+    public NoteServiceImpl(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
-        this.userRepository = userRepository;
     }
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<Note> getAll() {
@@ -48,8 +49,7 @@ public class NoteServiceImpl implements NoteService {
         Note newNote = new Note();
 
         newNote.setText(text);
-
-        newNote.setUserId(user.getId());
+        newNote.setUser(user);
 
         return noteRepository.saveAndFlush(newNote);
     }

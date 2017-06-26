@@ -2,10 +2,10 @@ package com.example.demo.services.impl;
 
 import com.example.demo.models.User;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.NoteService;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,6 +25,9 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Autowired
+    private NoteService noteService;
+
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
@@ -42,9 +45,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeById(Integer id) {
+
         if (null == userRepository.findOne(id)) {
             throw new EntityNotFoundException(String.format("There is no user with such id: %d", id));
         }
+
+        noteService.removeAllUserNotes(id);
         userRepository.delete(id);
     }
 

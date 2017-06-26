@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Note extends BaseModel {
 
     @NotEmpty
-    @Column(name = "text", nullable = false, unique = true)
+    @Column(name = "text", nullable = false)
     private String text;
 
     @ManyToOne
