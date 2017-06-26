@@ -17,6 +17,8 @@ public class User extends BaseModel {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Note> notes;
 
     public String getName() {
         return name;
@@ -25,4 +27,12 @@ public class User extends BaseModel {
     public void setName(String name) {
         this.name = name;
     }
+
+//    public List<Note> getNotes() {
+//        return notes;
+//    }
+//
+//    public void setNotes(List<Note> notes) {
+//        this.notes = notes;
+//    }
 }
