@@ -11,12 +11,14 @@ public interface NoteService {
 
     List<Note> getAll();
 
-    Note getById(Integer id);
+    Note getById(Integer noteId);
 
-    Note addNoteToUserById(Integer id, String text);
+    Note addNoteToUserById(Integer userId, String text);
 
-    List<Note> getAllUserNotesById(Integer id);
+    List<Note> getAllUserNotesById(Integer userId);
 
-    void removeAllUserNotes(Integer id);
+    void removeNoteById(Integer noteId);
+
+    void removeAllUserNotes(Integer userId);
 
 }

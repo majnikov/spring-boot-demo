@@ -67,6 +67,17 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    public void removeNoteById(Integer noteId) {
+        Note note = noteRepository.getOne(noteId);
+
+        if (null == note) {
+            throw new EntityNotFoundException(String.format("There is no note with such id: %d", noteId));
+        }
+
+        noteRepository.delete(note);
+    }
+
+    @Override
     public void removeAllUserNotes(Integer id) {
 
         User user = userRepository.findOne(id);

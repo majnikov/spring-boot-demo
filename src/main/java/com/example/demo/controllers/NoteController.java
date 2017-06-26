@@ -40,4 +40,9 @@ public class NoteController {
         noteService.removeAllUserNotes(id);
     }
 
+    @RequestMapping(value = "/users/{id:[\\d]+}/notes/{noteId:[\\d]+}", method = RequestMethod.DELETE)
+    public void removeUserNoteById(@PathVariable Integer noteId) {
+        noteService.removeNoteById(noteId);
+    }
+
 }
