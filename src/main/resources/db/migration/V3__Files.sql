@@ -1,0 +1,5 @@
+CREATE TABLE files (
+  id SERIAL PRIMARY KEY,
+  note_id SERIAL NOT NULL,
+  name TEXT NOT NULL
+);
