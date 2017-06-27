@@ -1,6 +1,6 @@
 package com.example.demo.services.impl;
 
-import com.example.demo.models.File;
+import com.example.demo.models.NoteFile;
 import com.example.demo.repositories.FileRepository;
 import com.example.demo.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public File getById(Integer id) {
+    public NoteFile getById(Integer id) {
         return fileRepository.findOne(id);
     }
 }

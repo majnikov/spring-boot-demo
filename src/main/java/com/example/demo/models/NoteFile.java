@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "files")
-public class File extends BaseModel {
+public class NoteFile extends BaseModel {
 
     @NotEmpty
     @Column(name = "name", nullable = false)
