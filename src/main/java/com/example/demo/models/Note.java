@@ -19,7 +19,7 @@ public class Note extends BaseModel {
     @JoinColumn(name = "user_id", updatable = false)
     private User user;
 
-    @Column (name = "user_id", updatable = false, nullable = false, insertable = false)
+    @Column (name = "user_id", updatable = false, insertable = false)
     private Integer userId;
 
     public String getText() {

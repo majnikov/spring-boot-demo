@@ -17,8 +17,9 @@ public interface NoteService {
 
     List<Note> getAllUserNotesById(Integer userId);
 
-    void removeNoteById(Integer noteId);
+    void removeNoteById(Integer userId, Integer noteId);
 
     void removeAllUserNotes(Integer userId);
 
+    Note updateNoteById(Integer userId, Integer noteId, String noteText);
 }

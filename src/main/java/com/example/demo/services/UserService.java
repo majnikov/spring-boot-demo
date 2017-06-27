@@ -21,4 +21,5 @@ public interface UserService {
 
     User createUserByName(String name);
 
+    User findOne(Integer id);
 }

@@ -49,7 +49,7 @@ public class UserController {
 
     @RequestMapping(value = "/{id:[\\d]+}/{name}", method = RequestMethod.PUT)
     public User updateUserById(@PathVariable Integer id, @PathVariable String name) {
-       return userService.updateNameById(id, name);
+        return userService.updateNameById(id, name);
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.POST)

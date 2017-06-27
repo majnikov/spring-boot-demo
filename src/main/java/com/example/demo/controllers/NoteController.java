@@ -25,24 +25,29 @@ public class NoteController {
         return noteService.getAll();
     }
 
-    @RequestMapping(value = "/users/{id:[\\d]+}/notes", method = RequestMethod.POST)
-    public Note addNoteToUserById(@PathVariable Integer id, @RequestParam String text) {
-        return noteService.addNoteToUserById(id, text);
+    @RequestMapping(value = "/users/{userId:[\\d]+}/notes", method = RequestMethod.POST)
+    public Note addNoteToUserById(@PathVariable Integer userId, @RequestParam String text) {
+        return noteService.addNoteToUserById(userId, text);
     }
 
-    @RequestMapping(value = "/users/{id:[\\d]+}/notes", method = RequestMethod.GET)
-    public List<Note> getAllUserNotes(@PathVariable Integer id) {
-        return noteService.getAllUserNotesById(id);
+    @RequestMapping(value = "/users/{userId:[\\d]+}/notes", method = RequestMethod.GET)
+    public List<Note> getAllUserNotes(@PathVariable Integer userId) {
+        return noteService.getAllUserNotesById(userId);
     }
 
-    @RequestMapping(value = "/users/{id:[\\d]+}/notes", method = RequestMethod.DELETE)
-    public void removeAllUserNotes(@PathVariable Integer id) {
-        noteService.removeAllUserNotes(id);
+    @RequestMapping(value = "/users/{userId:[\\d]+}/notes", method = RequestMethod.DELETE)
+    public void removeAllUserNotes(@PathVariable Integer userId) {
+        noteService.removeAllUserNotes(userId);
     }
 
-    @RequestMapping(value = "/users/{id:[\\d]+}/notes/{noteId:[\\d]+}", method = RequestMethod.DELETE)
-    public void removeUserNoteById(@PathVariable Integer noteId) {
-        noteService.removeNoteById(noteId);
+    @RequestMapping(value = "/users/{userId:[\\d]+}/notes/{noteId:[\\d]+}", method = RequestMethod.DELETE)
+    public void removeNoteById(@PathVariable Integer userId, @PathVariable Integer noteId) {
+        noteService.removeNoteById(userId, noteId);
+    }
+
+    @RequestMapping(value = "/users/{userId:[\\d]+}/notes/{noteId:[\\d]+}", method = RequestMethod.PUT)
+    public Note updateNoteById(@PathVariable Integer userId, @PathVariable Integer noteId, @RequestParam String noteText) {
+        return noteService.updateNoteById(userId, noteId, noteText);
     }
 
 }

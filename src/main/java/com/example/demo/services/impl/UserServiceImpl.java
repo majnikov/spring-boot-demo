@@ -7,9 +7,9 @@ import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void removeById(Integer id) {
-
         if (null == userRepository.findOne(id)) {
             throw new EntityNotFoundException(String.format("There is no user with such id: %d", id));
         }
@@ -55,30 +55,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public User updateNameById(Integer id, String name) {
-
-        if (null == userRepository.findOne(id)) {
+        User user = userRepository.findOne(id);
+        if (null == user) {
             throw new EntityNotFoundException(String.format("There is no user with such id: %d", id));
         }
 
-        User user = userRepository.getOne(id);
         user.setName(name);
+
         return userRepository.saveAndFlush(user);
     }
 
     @Override
-    @Transactional
     public User createUserByName(String name) {
-
         if (!userRepository.findByName(name).isEmpty()) {
             throw new DuplicateKeyException(String.format("There is already user exist with such name: %s", name));
         }
 
         User user = new User();
         user.setName(name);
+
         return userRepository.saveAndFlush(user);
     }
 
+    @Override
+    public User findOne(Integer id) {
+        return userRepository.findOne(id);
+    }
 
 }
