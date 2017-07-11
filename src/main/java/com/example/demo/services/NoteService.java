@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.models.Note;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface NoteService {
     Note getById(Integer noteId);
 
     Note addNoteToUserById(Integer userId, String text);
+
+    Note addNoteToUserWithFileById(Integer userId, String text, MultipartFile file);
 
     List<Note> getAllUserNotesById(Integer userId);
 

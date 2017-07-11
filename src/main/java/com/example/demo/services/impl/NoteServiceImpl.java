@@ -6,10 +6,15 @@ import com.example.demo.repositories.NoteRepository;
 import com.example.demo.services.NoteService;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,15 +23,16 @@ import java.util.List;
 @Service
 public class NoteServiceImpl implements NoteService {
 
-    private NoteRepository noteRepository;
+    private final NoteRepository noteRepository;
+
+    private final UserService userService;
 
     @Autowired
-    public NoteServiceImpl(NoteRepository noteRepository) {
+    @Lazy
+    public NoteServiceImpl(NoteRepository noteRepository, UserService userService) {
         this.noteRepository = noteRepository;
+        this.userService = userService;
     }
-
-    @Autowired
-    private UserService userService;
 
     @Override
     public List<Note> getAll() {
@@ -41,6 +47,30 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Note addNoteToUserById(Integer id, String text) {
         User user = userService.findOne(id);
+        if (null == user) {
+            throw new EntityNotFoundException(String.format("There is no user with such id: %d", id));
+        }
+
+        Note newNote = new Note();
+        newNote.setText(text);
+        newNote.setUser(user);
+
+        return noteRepository.saveAndFlush(newNote);
+    }
+
+    @Override
+    @Transactional
+    public Note addNoteToUserWithFileById(Integer id, String text, MultipartFile uploadedFile) {
+        User user = userService.findOne(id);
+
+        String destination = "uploads/" + id + "/" + uploadedFile.getOriginalFilename();
+
+        try {
+            uploadedFile.transferTo(new File(destination));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         if (null == user) {
             throw new EntityNotFoundException(String.format("There is no user with such id: %d", id));
         }

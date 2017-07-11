@@ -4,6 +4,7 @@ import com.example.demo.models.Note;
 import com.example.demo.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,9 +27,14 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/users/{userId:[\\d]+}/notes", method = RequestMethod.POST)
-    public Note addNoteToUserById(@PathVariable Integer userId, @RequestParam String text) {
-        return noteService.addNoteToUserById(userId, text);
+    public Note addNoteToUserWithFileById(@PathVariable Integer userId, @RequestParam String text, MultipartFile file) {
+        return noteService.addNoteToUserWithFileById(userId, text, file);
     }
+
+//    @RequestMapping(value = "/users/{userId:[\\d]+}/notes", method = RequestMethod.POST)
+//    public Note addNoteToUserById(@PathVariable Integer userId, @RequestParam String text) {
+//        return noteService.addNoteToUserById(userId, text);
+//    }
 
     @RequestMapping(value = "/users/{userId:[\\d]+}/notes", method = RequestMethod.GET)
     public List<Note> getAllUserNotes(@PathVariable Integer userId) {

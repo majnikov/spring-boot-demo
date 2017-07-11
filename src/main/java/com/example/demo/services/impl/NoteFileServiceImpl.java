@@ -2,25 +2,32 @@ package com.example.demo.services.impl;
 
 import com.example.demo.models.NoteFile;
 import com.example.demo.repositories.FileRepository;
-import com.example.demo.services.FileService;
+import com.example.demo.services.NoteFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by maksim on 6/22/17.
  */
 @Service
-public class FileServiceImpl implements FileService {
+public class NoteFileServiceImpl implements NoteFileService {
 
     private FileRepository fileRepository;
 
     @Autowired
-    public FileServiceImpl(FileRepository fileRepository) {
+    public NoteFileServiceImpl(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
     @Override
-    public NoteFile getById(Integer id) {
-        return fileRepository.findOne(id);
+    public NoteFile getById(Integer fileId) {
+        return fileRepository.findOne(fileId);
+    }
+
+    @Override
+    public List<NoteFile> getAll() {
+        return null;
     }
 }
